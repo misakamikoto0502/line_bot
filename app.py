@@ -12,7 +12,7 @@ from linebot.models import *
 import tempfile, os
 import datetime
 # import openai
-import google.generativeai as genai
+# import google.generativeai as genai
 import time
 import traceback
 #======python的函數庫==========
@@ -25,15 +25,15 @@ line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
 
-genai.configure(api_key = os.getenv('GEMINI_API_KEY'))
+# genai.configure(api_key = os.getenv('GEMINI_API_KEY'))
 
 
-def Gemini_response(text):
-    # 接收回應
-    model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(text)
+# def Gemini_response(text):
+#     # 接收回應
+#     model = genai.GenerativeModel('gemini-pro')
+#     response = model.generate_content(text)
 
-    return response.text
+#     return response.text
 
 
 # 監聽所有來自 /callback 的 Post Request
@@ -57,9 +57,9 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     try:
-        GPT_answer = Gemini_response(msg)
+        # GPT_answer = Gemini_response(msg)
         # print(GPT_answer)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(GPT_answer))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(msg))
     except:
         print(traceback.format_exc())
         line_bot_api.reply_message(event.reply_token, TextSendMessage('你所使用的OPENAI API key額度可能已經超過，請於後台Log內確認錯誤訊息'))
