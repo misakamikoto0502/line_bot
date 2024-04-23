@@ -57,12 +57,12 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     try:
-        GPT_answer = Gemini_response(msg)
-        print(GPT_answer)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(GPT_answer))
+        Gemini_answer = Gemini_response(msg)
+        print(Gemini_answer)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(Gemini_answer))
     except:
         print(traceback.format_exc())
-        line_bot_api.reply_message(event.reply_token, TextSendMessage('你所使用的OPENAI API key額度可能已經超過，請於後台Log內確認錯誤訊息'))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage('你所使用的API key額度可能已經超過，請於後台Log內確認錯誤訊息'))
         
 
 @handler.add(PostbackEvent)
@@ -76,7 +76,7 @@ def welcome(event):
     gid = event.source.group_id
     profile = line_bot_api.get_group_member_profile(gid, uid)
     name = profile.display_name
-    message = TextSendMessage(text=f'{name}歡迎加入')
+    message = TextSendMessage(text=f'{name}嗨嗨')
     line_bot_api.reply_message(event.reply_token, message)
         
         
